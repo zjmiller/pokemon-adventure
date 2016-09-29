@@ -1,9 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import randomColor from 'randomcolor';
 import shortid from 'shortid';
 import store from '../shared/store';
+import App from './components/App';
 
 const wsClient = new WebSocket('ws://localhost:3000/', 'protocol-1');
 
-if (localStorage.getItem('pokemon-player-id') === null) {
+if (!localStorage.getItem('pokemon-player-id')) {
   localStorage.setItem('pokemon-player-id', shortid.generate());
 }
 
@@ -18,6 +23,7 @@ wsClient.onopen = e => {
     action: 'createPlayer',
     options: {
       playerId: yourPlayerId,
+      color: randomColor(),
     },
     haveProcessedBefore,
   }
@@ -26,7 +32,48 @@ wsClient.onopen = e => {
 };
 
 wsClient.onmessage = message => {
+  console.log(message.data);
   const data = JSON.parse(message.data);
   data.actionsToProcess.forEach(action => store.dispatch(action));
   haveProcessedBefore = data.haveProcessedBefore;
+  console.log(yourPlayerId, store.getState());
 };
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+window.addEventListener('keydown', e => {
+  if (e.which === 37) {
+    e.preventDefault();
+
+    const message = {
+      action: 'movePlayer',
+      options: {
+        playerId: yourPlayerId,
+        direction: 'left',
+      },
+      haveProcessedBefore,
+    }
+
+    wsClient.send(JSON.stringify(message));
+  }
+
+  if (e.which === 39) {
+    e.preventDefault();
+
+    const message = {
+      action: 'movePlayer',
+      options: {
+        playerId: yourPlayerId,
+        direction: 'right',
+      },
+      haveProcessedBefore,
+    }
+
+    wsClient.send(JSON.stringify(message));
+  }
+});

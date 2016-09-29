@@ -1,8 +1,8 @@
-module.exports = ({ playerId, color }, { dispatch }, actionsList) => {
+module.exports = ({ playerId, direction }, { dispatch }, actionsList) => {
   const action = {
-    type: 'CREATE_PLAYER',
+    type: 'MOVE_PLAYER',
     playerId,
-    color,
+    direction,
   };
 
   // It is important actionsList.push(action) comes before dispatch(action)
