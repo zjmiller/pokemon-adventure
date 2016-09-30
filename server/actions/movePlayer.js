@@ -1,14 +1,17 @@
-module.exports = ({ playerId, direction }, { dispatch }, actionsList) => {
-  const action = {
-    type: 'MOVE_PLAYER',
-    playerId,
-    direction,
-  };
+const canPlayerMoveInDirection = require('../selectors/canPlayerMoveInDirection');
 
-  // It is important actionsList.push(action) comes before dispatch(action)
-  // dispatch triggers a websocket push
-  // and this push is a set of actions
-  // for the set to be complete, actionsList must be up-to-date
-  actionsList.push(action);
-  dispatch(action);
+module.exports = ({ playerId, direction }, { dispatch, getState }, actionsList) => {
+  const playerCanMoveInDirection = canPlayerMoveInDirection(getState(), playerId, direction);
+
+  if (playerCanMoveInDirection) {
+    const action = {
+      type: 'MOVE_PLAYER',
+      playerId,
+      direction,
+    };
+    actionsList.push(action);
+    dispatch(action);
+  } else {
+    dispatch({type: 'NOOP'});  
+  }
 }

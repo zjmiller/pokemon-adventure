@@ -33,8 +33,17 @@ function App({ players }) {
   );
 }
 
-const mapStateToProps = state => ({
-  players: state.players,
-});
+const mapStateToProps = state => {
+  return {
+    players: state.players.map(player => {
+      const {x, y} = state.locations.find(loc => loc.player === player.id);
+      return Object.assign(
+        {},
+        player,
+        { x, y }
+      );
+    }),
+  };
+};
 
 export default connect(mapStateToProps)(App)

@@ -1,8 +1,13 @@
-module.exports = ({ playerId, color }, { dispatch }, actionsList) => {
+const getRandomUnoccupiedLocation = require('../selectors/getRandomUnoccupiedLocation.js');
+
+module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
+  const randomUnoccupiedLocation = getRandomUnoccupiedLocation(getState());
+
   const action = {
     type: 'CREATE_PLAYER',
     playerId,
-    color,
+    x: randomUnoccupiedLocation.x,
+    y: randomUnoccupiedLocation.y,
   };
 
   // It is important actionsList.push(action) comes before dispatch(action)
