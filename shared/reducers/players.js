@@ -10,7 +10,7 @@ module.exports = (state, action) => {
       id: action.playerId,
       x: 0,
       y: 0,
-      color: action.color,
+      facing: 'left',
     });
   }
 
@@ -21,7 +21,10 @@ module.exports = (state, action) => {
         return Object.assign(
           {},
           player,
-          { x: player.x - 1 }
+          {
+            facing: 'left',
+            x: player.x - 1,
+          }
         );
       });
     }
@@ -43,7 +46,10 @@ module.exports = (state, action) => {
         return Object.assign(
           {},
           player,
-          { x: player.x + 1 }
+          {
+            facing: 'right',
+            x: player.x + 1
+          }
         );
       });
     }
