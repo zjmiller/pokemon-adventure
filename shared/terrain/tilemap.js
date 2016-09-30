@@ -1,8 +1,8 @@
-import layer0 from './layer0';
-import layer1 from './layer1';
-import layer3 from './layer3';
+const layer0 = require('./layer0');
+const layer1 = require('./layer1');
+const layer3 = require('./layer3');
 
-export default [
+module.exports = [
   layer0,
   layer1,
   [[null]],

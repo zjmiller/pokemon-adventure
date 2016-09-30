@@ -1,4 +1,4 @@
-import combineToFormLayer from './combineToFormLayer';
+const combineToFormLayer = require('./combineToFormLayer');
 
 const layer0_0 = [
   [  207,  177,   50,   80,   50,   80,   50,   80,   50,   80],
@@ -78,7 +78,7 @@ const layer0_5 = [
   [   80,   50,   80,   50,   80,   50,   80,   50,  176,  207],
 ];
 
-export default combineToFormLayer([
+module.exports = combineToFormLayer([
   [layer0_0, layer0_1, layer0_2,],
   [layer0_3, layer0_4, layer0_5,],
 ]);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Pokemon from './Pokemon';
+import Terrain from './Terrain';
 
 function App({ players }) {
   return (
@@ -11,6 +12,7 @@ function App({ players }) {
       position: 'relative',
       width: '960px',
     }}>
+      <Terrain />
       { players.map( player => <Pokemon
         key={player.id}
         x={player.x}

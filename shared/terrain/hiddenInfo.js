@@ -1,4 +1,4 @@
-export default function (tileId) {
+module.exports = function hiddenInfo(tileId) {
   const playerIsHiddenBehindTilesWithFollowingIds = [
     404, 405, 432, 433, 434, 435, 462, 463,
     710, 713, 740, 743, 770,
@@ -9,5 +9,6 @@ export default function (tileId) {
     2327, 2357,
     2603, 2604, 2606, 2607,
   ];
+
   return playerIsHiddenBehindTilesWithFollowingIds.indexOf(tileId) > -1;
 }

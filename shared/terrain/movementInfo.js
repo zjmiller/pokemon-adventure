@@ -1,4 +1,4 @@
-export default function (tileId) {
+module.exports = function (tileId) {
   switch (tileId) {
     case 176:
       return {

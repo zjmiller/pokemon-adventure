@@ -1,4 +1,4 @@
-export default function combineToFormLayer(arr){
+module.exports = function combineToFormLayer(arr){
   const result = [];
   let counter = 0;
 
