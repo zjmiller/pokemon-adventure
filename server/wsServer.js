@@ -16,11 +16,11 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServer = new WebSocketServer(wsServerOpts);
 
   setInterval(() => {
-    if (getNumBerriesOnMap(store.getState()) < 5)
+    if (getNumBerriesOnMap(store.getState()) < 55)
       spawnBerry({}, store, actionsList);
     if (getNumMushroomsOnMap(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-  }, 1000);
+  }, 100);
 
   const wsServerConnectHandler = connection => {
 

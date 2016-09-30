@@ -48,8 +48,6 @@ tilemap.forEach((layer, z) => {
   })
 });
 
-console.log(initialState.find(t => !t.playerHidden));
-
 module.exports = function(state, action) {
   if (state === undefined) state = initialState;
   return state;
