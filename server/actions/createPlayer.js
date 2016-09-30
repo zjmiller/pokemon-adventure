@@ -3,9 +3,14 @@ const getRandomUnoccupiedLocation = require('../selectors/getRandomUnoccupiedLoc
 module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
   const randomUnoccupiedLocation = getRandomUnoccupiedLocation(getState());
 
+  const possibleBeginningPokemonSpeciesIds = [1, 4, 7];
+
+  const randomSpeciesId = possibleBeginningPokemonSpeciesIds[Math.floor(Math.random() * 3)];
+
   const action = {
     type: 'CREATE_PLAYER',
     playerId,
+    pokemonSpeciesId: randomSpeciesId,
     x: randomUnoccupiedLocation.x,
     y: randomUnoccupiedLocation.y,
   };

@@ -10,6 +10,8 @@ module.exports = (state, action) => {
       id: action.playerId,
       facing: 'left',
       hp: 10,
+      pokemonSpeciesId: action.pokemonSpeciesId,
+      pokedex: [{pokemonSpeciesId: 1}],
     });
   }
 

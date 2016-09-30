@@ -21,11 +21,7 @@ function Map({ players, berries, mushrooms }) {
           facing={player.facing}
           isPlayer={true}
           hidden={false}
-          species={{
-            img: 'bulbasaur-front.png',
-            backgroundPosition:'-22px -22px',
-            backgroundSize:  '80px 80px',
-          }}
+          species={player.species}
         />
       )}
       {berries.map(({x, y, itemType}) =>
@@ -57,17 +53,24 @@ const mapStateToProps = state => {
     })
   );
 
+  const players = state.players.map(player => {
+    const { x, y } = state.locations.find(loc => loc.player === player.id);
+    const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
+    return Object.assign(
+      {},
+      player,
+      {
+        x,
+        y,
+        species,
+      }
+    );
+  });
+
   return {
     berries,
     mushrooms,
-    players: state.players.map(player => {
-      const {x, y} = state.locations.find(loc => loc.player === player.id);
-      return Object.assign(
-        {},
-        player,
-        { x, y }
-      );
-    }),
+    players,
   };
 };
 
