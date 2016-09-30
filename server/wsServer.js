@@ -3,6 +3,8 @@ const createPlayer = require('./actions/createPlayer.js');
 const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
 
+const getNumBerriesOnMap = require('./selectors/getNumBerriesOnMap.js');
+
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
     httpServer,
@@ -11,6 +13,11 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
 
   const wsServer = new WebSocketServer(wsServerOpts);
 
+  setInterval(() => {
+    if (getNumBerriesOnMap(store.getState()) < 5)
+      spawnBerry({}, store, actionsList)
+  }, 1000);
+
   const wsServerConnectHandler = connection => {
     let haveProcessedBefore;
 
@@ -18,7 +25,6 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       const msg = JSON.parse(message.utf8Data);
       if (msg.action === 'createPlayer') createPlayer(msg.options, store, actionsList);
       if (msg.action === 'movePlayer') movePlayer(msg.options, store, actionsList);
-      spawnBerry({}, store, actionsList);
     }
 
     store.subscribe(() => {
