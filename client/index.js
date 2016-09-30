@@ -6,7 +6,10 @@ import shortid from 'shortid';
 import store from '../shared/store';
 import App from './components/App';
 
-const wsClient = new WebSocket('ws://localhost:3000/', 'protocol-1');
+const local = 'localhost';
+const heroku = 'frozen-springs-22274.herokuapp.com';
+
+const wsClient = new WebSocket(`ws://${heroku}:5000`, 'protocol-1');
 
 if (!localStorage.getItem('pokemon-player-id')) {
   localStorage.setItem('pokemon-player-id', shortid.generate());
