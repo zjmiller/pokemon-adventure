@@ -1,5 +1,6 @@
 const canPlayerMoveInDirection = require('../selectors/canPlayerMoveInDirection');
-const isPlayerOnTopOfItem = require('../selectors/isPlayerOnTopOfItem');
+const isPlayerOnTopOfBerry = require('../selectors/isPlayerOnTopOfBerry');
+const isPlayerOnTopOfMushroom = require('../selectors/isPlayerOnTopOfMushroom');
 
 module.exports = ({ playerId, direction }, { dispatch, getState }, actionsList) => {
   const playerCanMoveInDirection = canPlayerMoveInDirection(getState(), playerId, direction);
@@ -13,10 +14,20 @@ module.exports = ({ playerId, direction }, { dispatch, getState }, actionsList) 
     actionsList.push(action);
     dispatch(action);
 
-    const playerIsOnTopOfItem = isPlayerOnTopOfItem(getState(), playerId);
-    if (playerIsOnTopOfItem) {
+    const playerIsOnTopOfBerry = isPlayerOnTopOfBerry(getState(), playerId);
+    if (playerIsOnTopOfBerry) {
       const action = {
         type: 'EAT_BERRY',
+        playerId,
+      };
+      actionsList.push(action);
+      dispatch(action);
+    }
+
+    const playerIsOnTopOfMushroom = isPlayerOnTopOfMushroom(getState(), playerId);
+    if (playerIsOnTopOfMushroom) {
+      const action = {
+        type: 'EAT_MUSHROOM',
         playerId,
       };
       actionsList.push(action);

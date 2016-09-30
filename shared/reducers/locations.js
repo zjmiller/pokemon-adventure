@@ -95,5 +95,17 @@ module.exports = function(state, action) {
     })
   }
 
+  if (action.type === 'EAT_MUSHROOM') {
+    return state.map(loc => {
+      const playerIsHere = loc.player === action.playerId;
+      if (!playerIsHere) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { mushroom: false }
+      );
+    })
+  }
+
   return state;
 }

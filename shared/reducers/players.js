@@ -9,6 +9,7 @@ module.exports = (state, action) => {
     return state.concat({
       id: action.playerId,
       facing: 'left',
+      hp: 10,
     });
   }
 
@@ -21,7 +22,7 @@ module.exports = (state, action) => {
           player,
           { facing: 'left' }
         );
-      })
+      });
     }
 
     if (action.direction === 'right') {
@@ -32,10 +33,32 @@ module.exports = (state, action) => {
           player,
           { facing: 'right' }
         );
-      })
+      });
     }
 
     return state;
+  }
+
+  if (action.type === 'EAT_BERRY') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        { hp: player.hp + 1 }
+      );
+    });
+  }
+
+  if (action.type === 'EAT_MUSHROOM') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        { hp: player.hp - 1 }
+      );
+    });
   }
 
   return state;

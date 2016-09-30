@@ -5,8 +5,6 @@ import Terrain from './Terrain';
 import Item from './Item';
 
 function App({ players, berries, mushrooms }) {
-  console.log(berries);
-
   return (
     <div style={{
       border: '1px solid red',
