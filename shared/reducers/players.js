@@ -15,6 +15,28 @@ module.exports = (state, action) => {
   }
 
   if (action.type === 'MOVE_PLAYER') {
+    if (action.direction === 'left') {
+      return state.map(player => {
+        if (player.id !== action.playerId) return player;
+        return Object.assign(
+          {},
+          player,
+          { x: player.x - 1 }
+        );
+      });
+    }
+
+    if (action.direction === 'up') {
+      return state.map(player => {
+        if (player.id !== action.playerId) return player;
+        return Object.assign(
+          {},
+          player,
+          { y: player.y - 1 }
+        );
+      });
+    }
+
     if (action.direction === 'right') {
       return state.map(player => {
         if (player.id !== action.playerId) return player;
@@ -26,13 +48,13 @@ module.exports = (state, action) => {
       });
     }
 
-    if (action.direction === 'left') {
+    if (action.direction === 'down') {
       return state.map(player => {
         if (player.id !== action.playerId) return player;
         return Object.assign(
           {},
           player,
-          { x: player.x - 1 }
+          { y: player.y + 1 }
         );
       });
     }

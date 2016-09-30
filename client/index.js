@@ -1,43 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import randomColor from 'randomcolor';
 import shortid from 'shortid';
 import store from '../shared/store';
 import App from './components/App';
+import createPlayer from './actions/createPlayer';
+import movePlayer from './actions/movePlayer';
 
-const wsClient = new WebSocket(location.origin.replace(/^http/, 'ws'), 'protocol-1');
-
+// get or set player id in local storage
 if (!localStorage.getItem('pokemon-player-id')) {
   localStorage.setItem('pokemon-player-id', shortid.generate());
 }
 
-const yourPlayerId = localStorage.getItem('pokemon-player-id');
+const playerId = localStorage.getItem('pokemon-player-id');
 
 // this keeps track of which actions have been fed thru reducer
 // E.g., 5 means that's every action before the 5th has been eaten
 let haveProcessedBefore = 0;
 
-wsClient.onopen = e => {
-  const message = {
-    action: 'createPlayer',
-    options: {
-      playerId: yourPlayerId,
-      color: randomColor(),
-    },
-    haveProcessedBefore,
-  }
+const ws = new WebSocket(location.origin.replace(/^http/, 'ws'), 'protocol-1');
 
-  wsClient.send(JSON.stringify(message));
+// set up WebSocket
+
+ws.onopen = e => {
+  createPlayer(ws, haveProcessedBefore, { playerId });
 };
 
-wsClient.onmessage = message => {
+ws.onmessage = message => {
   console.log(message.data);
   const data = JSON.parse(message.data);
   data.actionsToProcess.forEach(action => store.dispatch(action));
   haveProcessedBefore = data.haveProcessedBefore;
-  console.log(yourPlayerId, store.getState());
+  console.log(playerId, store.getState());
 };
+
+// render React hierarchy
 
 ReactDOM.render(
   <Provider store={store}>
@@ -46,34 +43,17 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// event listeners
+
 window.addEventListener('keydown', e => {
-  if (e.which === 37) {
-    e.preventDefault();
+  if ([37, 38, 39, 40].some(n => n === e.which)) e.preventDefault();
 
-    const message = {
-      action: 'movePlayer',
-      options: {
-        playerId: yourPlayerId,
-        direction: 'left',
-      },
-      haveProcessedBefore,
-    }
-
-    wsClient.send(JSON.stringify(message));
-  }
-
-  if (e.which === 39) {
-    e.preventDefault();
-
-    const message = {
-      action: 'movePlayer',
-      options: {
-        playerId: yourPlayerId,
-        direction: 'right',
-      },
-      haveProcessedBefore,
-    }
-
-    wsClient.send(JSON.stringify(message));
-  }
+  if (e.which === 37)
+    movePlayer(ws, haveProcessedBefore, { playerId, direction: 'left' } );
+  else if (e.which === 38)
+    movePlayer(ws, haveProcessedBefore, { playerId, direction: 'up' } );
+  else if (e.which === 39)
+    movePlayer(ws, haveProcessedBefore, { playerId, direction: 'right' } );
+  else if (e.which === 40)
+    movePlayer(ws, haveProcessedBefore, { playerId, direction: 'down' } );
 });
