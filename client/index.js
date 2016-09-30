@@ -11,7 +11,6 @@ import movePlayer from './actions/movePlayer';
 if (!localStorage.getItem('pokemon-player-id')) {
   localStorage.setItem('pokemon-player-id', shortid.generate());
 }
-
 const playerId = localStorage.getItem('pokemon-player-id');
 
 // this keeps track of which actions have been fed thru reducer
