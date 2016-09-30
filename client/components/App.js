@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Player from './Player';
 import Pokemon from './Pokemon';
 
 function App({ players }) {
