@@ -4,7 +4,7 @@ import Pokemon from './Pokemon';
 import Terrain from './Terrain';
 import Item from './Item';
 
-function App({ players, berries }) {
+function App({ players, berries, mushrooms }) {
   console.log(berries);
 
   return (
@@ -34,6 +34,9 @@ function App({ players, berries }) {
       {berries.map(({x, y, itemType}) =>
         <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
       )}
+      {mushrooms.map(({x, y, itemType}) =>
+        <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
+      )}
     </div>
   );
 }
@@ -45,10 +48,21 @@ const mapStateToProps = state => {
       x: loc.x,
       y: loc.y,
       itemType: state.itemTypes.find(item => item.id === 1),
-    }));
+    })
+  );
+
+  const mushrooms = state.locations
+    .filter(loc => loc.mushroom)
+    .map(loc => ({
+      x: loc.x,
+      y: loc.y,
+      itemType: state.itemTypes.find(item => item.id === 2),
+    })
+  );
 
   return {
     berries,
+    mushrooms,
     players: state.players.map(player => {
       const {x, y} = state.locations.find(loc => loc.player === player.id);
       return Object.assign(

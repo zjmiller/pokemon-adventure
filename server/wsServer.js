@@ -2,8 +2,10 @@ const WebSocketServer = require('websocket').server;
 const createPlayer = require('./actions/createPlayer.js');
 const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
+const spawnMushroom = require('./actions/spawnMushroom.js');
 
 const getNumBerriesOnMap = require('./selectors/getNumBerriesOnMap.js');
+const getNumMushroomsOnMap = require('./selectors/getNumMushroomsOnMap.js');
 
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
@@ -15,7 +17,9 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
 
   setInterval(() => {
     if (getNumBerriesOnMap(store.getState()) < 5)
-      spawnBerry({}, store, actionsList)
+      spawnBerry({}, store, actionsList);
+    if (getNumMushroomsOnMap(store.getState()) < 10)
+      spawnMushroom({}, store, actionsList);
   }, 1000);
 
   const wsServerConnectHandler = connection => {
