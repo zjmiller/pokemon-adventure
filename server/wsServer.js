@@ -1,6 +1,7 @@
 const WebSocketServer = require('websocket').server;
 const createPlayer = require('./actions/createPlayer.js');
 const movePlayer = require('./actions/movePlayer.js');
+const spawnBerry = require('./actions/spawnBerry.js');
 
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
@@ -17,6 +18,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       const msg = JSON.parse(message.utf8Data);
       if (msg.action === 'createPlayer') createPlayer(msg.options, store, actionsList);
       if (msg.action === 'movePlayer') movePlayer(msg.options, store, actionsList);
+      spawnBerry({}, store, actionsList);
     }
 
     store.subscribe(() => {

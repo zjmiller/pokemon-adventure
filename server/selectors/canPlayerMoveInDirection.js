@@ -1,7 +1,7 @@
 const getLocationPlayerIsTryingToMoveTo = require('./getLocationPlayerIsTryingToMoveTo');
-const isLocationUnoccupied = require('./isLocationUnoccupied');
+const isLocationUnoccupiedByPlayerAndNPC = require('./isLocationUnoccupiedByPlayerAndNPC');
 
 module.exports = function canPlayerMoveInDirection(state, playerId, direction) {
   const locationPlayerIsTryingToMoveTo = getLocationPlayerIsTryingToMoveTo(state, playerId, direction);
-  return isLocationUnoccupied(state, locationPlayerIsTryingToMoveTo);
+  return isLocationUnoccupiedByPlayerAndNPC(state, locationPlayerIsTryingToMoveTo);
 }

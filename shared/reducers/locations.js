@@ -26,7 +26,7 @@ module.exports = function(state, action) {
         loc,
         { player: action.playerId }
       );
-    })
+    });
   }
 
   if (action.type === 'MOVE_PLAYER') {
@@ -57,6 +57,30 @@ module.exports = function(state, action) {
         { player: action.playerId }
       );
     });
+  }
+
+  if (action.type === 'SPAWN_BERRY') {
+    return state.map(loc => {
+      const isSpecifiedLocation = loc.x === action.x && loc.y === action.y
+      if (!isSpecifiedLocation) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { berry: true }
+      );
+    });
+  }
+
+  if (action.type === 'EAT_BERRY') {
+    return state.map(loc => {
+      const playerIsHere = loc.player === action.playerId;
+      if (!playerIsHere) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { berry: false }
+      );
+    })
   }
 
   return state;

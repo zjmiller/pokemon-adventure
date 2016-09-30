@@ -46,6 +46,7 @@ tilemap.forEach((layer, z) =>
     })
   )
 );
+
 module.exports = function(state, action) {
   if (state === undefined) state = initialState;
   return state;
