@@ -4,8 +4,8 @@ const movementInfo = require('../terrain/movementInfo');
 
 const initialState = [];
 
-tilemap.forEach((layer, z) =>
-  layer.forEach((row, y) =>
+tilemap.forEach((layer, z) => {
+  layer.forEach((row, y) => {
     row.forEach((tileId, x) => {
       const tileIfExists = initialState.find(tile => tile.x === x && tile.y === y)
 
@@ -42,10 +42,13 @@ tilemap.forEach((layer, z) =>
           down: oldDown && newDown,
         };
 
+        tileIfExists.playerHidden = tileIfExists.playerHidden || hiddenInfo(tileId);
       }
     })
-  )
-);
+  })
+});
+
+console.log(initialState.find(t => !t.playerHidden));
 
 module.exports = function(state, action) {
   if (state === undefined) state = initialState;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Pokemon from './Pokemon';
 import Terrain from './Terrain';
 import Item from './Item';
+import isPlayerHidden from '../selectors/isPlayerHidden';
 
 function Map({ players, berries, mushrooms }) {
   return (
@@ -20,7 +21,7 @@ function Map({ players, berries, mushrooms }) {
           z={2}
           facing={player.facing}
           isPlayer={true}
-          hidden={false}
+          hidden={player.hidden}
           species={player.species}
         />
       )}
@@ -56,6 +57,7 @@ const mapStateToProps = state => {
   const players = state.players.map(player => {
     const { x, y } = state.locations.find(loc => loc.player === player.id);
     const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
+    const hidden = isPlayerHidden(state, player.id);
     return Object.assign(
       {},
       player,
@@ -63,6 +65,7 @@ const mapStateToProps = state => {
         x,
         y,
         species,
+        hidden,
       }
     );
   });
