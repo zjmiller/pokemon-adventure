@@ -1,14 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import HPBar from './HPBar';
 import Map from './Map';
-import Pokemon from './Pokemon';
-import Terrain from './Terrain';
-import Item from './Item';
 
-function App({ players, berries, mushrooms }) {
+function App({ playerId }) {
   return (
-    <Map />
+    <div
+      style={{
+        height: '640px',
+        margin: '20px',
+        width: '1010px',
+      }}
+    >
+      <HPBar playerId={playerId} />
+      <Map />
+    </div>
   );
 }
 
-export default Map;
+export default App;

@@ -37,7 +37,7 @@ ws.onmessage = message => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App playerId={playerId} />
   </Provider>,
   document.getElementById('root')
 );
