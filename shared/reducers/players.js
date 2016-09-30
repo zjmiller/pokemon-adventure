@@ -12,5 +12,31 @@ module.exports = (state, action) => {
     });
   }
 
+  if (action.type === 'MOVE_PLAYER') {
+    if (action.direction === 'left') {
+      return state.map(player => {
+        if (player.id !== action.playerId) return player;
+        return Object.assign(
+          {},
+          player,
+          { facing: 'left' }
+        );
+      })
+    }
+
+    if (action.direction === 'right') {
+      return state.map(player => {
+        if (player.id !== action.playerId) return player;
+        return Object.assign(
+          {},
+          player,
+          { facing: 'right' }
+        );
+      })
+    }
+
+    return state;
+  }
+
   return state;
 };
