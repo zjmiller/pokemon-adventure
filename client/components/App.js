@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import HPBar from './HPBar';
 import Map from './Map';
+import PlayerProfiles from './PlayerProfiles';
 
 function App({ playerId }) {
   return (
@@ -9,10 +9,11 @@ function App({ playerId }) {
       style={{
         height: '640px',
         margin: '20px',
-        width: '1010px',
+        width: '1295px',
       }}
     >
       <HPBar playerId={playerId} />
+      <PlayerProfiles playerId={playerId} />
       <Map />
     </div>
   );
