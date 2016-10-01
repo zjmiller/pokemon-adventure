@@ -7,3 +7,7 @@
 - remember to include webpack and all loaders in the regular dependencies
 
 - when specifying clientside WebSocket url, use location.origin, this lets same client-side JS work with local development and Heroku
+
+- using ws instead of websocket
+- with ws, make sure server checks connection state before sending message
+- otherwise server might crash because it's trying to send messages during browser refresh

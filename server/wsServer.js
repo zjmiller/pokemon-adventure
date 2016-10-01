@@ -20,7 +20,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       spawnBerry({}, store, actionsList);
     if (getNumMushroomsOnMap(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-    spawnNpc({}, store, actionsList);
+    // spawnNpc({}, store, actionsList);
   }, 1000);
 
   wsServer.on('connection', connection => {
@@ -41,12 +41,14 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
 
     // respond to incoming action indirectly via store changes
     store.subscribe(() => {
-      const returnMsg = {
-        actionsToProcess: actionsList.slice(haveProcessedBefore),
-        haveProcessedBefore: actionsList.length,
-      };
-      haveProcessedBefore = actionsList.length;
-      connection.send(JSON.stringify(returnMsg));
+      if (connection.readyState === connection.OPEN) {
+        const returnMsg = {
+          actionsToProcess: actionsList.slice(haveProcessedBefore),
+          haveProcessedBefore: actionsList.length,
+        };
+        haveProcessedBefore = actionsList.length;
+        connection.send(JSON.stringify(returnMsg));
+      }
     });
   });
 }

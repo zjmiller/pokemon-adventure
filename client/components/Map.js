@@ -19,6 +19,7 @@ function Map({ players, berries, mushrooms, npcs }) {
           x={player.x}
           y={player.y}
           z={2}
+          color={player.color}
           facing={player.facing}
           isPlayer={true}
           hidden={player.hidden}
@@ -74,6 +75,7 @@ const mapStateToProps = state => {
     const { x, y } = state.locations.find(loc => loc.player === player.id);
     const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
     const hidden = isPlayerHidden(state, player.id);
+    console.log(player);
     return Object.assign(
       {},
       player,

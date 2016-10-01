@@ -1,3 +1,4 @@
+const randomColor = require('randomColor');
 const getRandomUnoccupiedLocation = require('../selectors/getRandomUnoccupiedLocation.js');
 
 module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
@@ -10,10 +11,13 @@ module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
   const action = {
     type: 'CREATE_PLAYER',
     playerId,
+    color: randomColor({ format: 'rgb' }),
     pokemonSpeciesId: randomSpeciesId,
     x: randomUnoccupiedLocation.x,
     y: randomUnoccupiedLocation.y,
   };
+
+  console.log(action);
 
   // It is important actionsList.push(action) comes before dispatch(action)
   // dispatch triggers a websocket push

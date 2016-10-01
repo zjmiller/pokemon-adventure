@@ -44,9 +44,9 @@ ws.onmessage = message => {
     );
   } else {
     // process incoming actions
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
     data.actionsToProcess.forEach(action => store.dispatch(action));
-    console.log(playerId, store.getState());
+    // console.log(playerId, store.getState());
   }
 
   // either way, update count so we know which actions we've processed

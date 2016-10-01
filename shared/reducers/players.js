@@ -8,6 +8,7 @@ module.exports = (state, action) => {
 
     return state.concat({
       id: action.playerId,
+      color: action.color,
       facing: 'left',
       hp: 10,
       pokemonSpeciesId: action.pokemonSpeciesId,
