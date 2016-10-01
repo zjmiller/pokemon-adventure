@@ -5,8 +5,9 @@ const spawnBerry = require('./actions/spawnBerry.js');
 const spawnMushroom = require('./actions/spawnMushroom.js');
 const spawnNpc = require('./actions/spawnNpc.js');
 
-const getNumBerriesOnMap = require('./selectors/getNumBerriesOnMap.js');
-const getNumMushroomsOnMap = require('./selectors/getNumMushroomsOnMap.js');
+const getNumBerries = require('./selectors/getNumBerries.js');
+const getNumMushrooms = require('./selectors/getNumMushrooms.js');
+const getNumNpcs = require('./selectors/getNumNpcs.js');
 
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
@@ -16,11 +17,12 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServer = new WebSocketServer(wsServerOpts);
 
   setInterval(() => {
-    if (getNumBerriesOnMap(store.getState()) < 10)
+    if (getNumBerries(store.getState()) < 10)
       spawnBerry({}, store, actionsList);
-    if (getNumMushroomsOnMap(store.getState()) < 10)
+    if (getNumMushrooms(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-    // spawnNpc({}, store, actionsList);
+    if (getNumNpcs(store.getState()) < 10)
+      spawnNpc({}, store, actionsList);
   }, 1000);
 
   wsServer.on('connection', connection => {
