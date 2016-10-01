@@ -59,6 +59,36 @@ module.exports = function(state, action) {
     });
   }
 
+  if (action.type === 'MOVE_NPC') {
+    const oldI = state.findIndex(loc => loc.npc === action.npcId);
+    const oldLoc = state[oldI];
+    const oldX = oldLoc.x;
+    const oldY = oldLoc.y;
+    let newX = oldX;
+    let newY = oldY;
+
+    if (action.direction === 'left') newX--;
+    if (action.direction === 'up') newY--;
+    if (action.direction === 'right') newX++;
+    if (action.direction === 'down') newY++;
+
+    const newI = state.findIndex(loc => loc.x === newX && loc.y === newY);
+
+    return state.map((loc, i) => {
+      if (i !== oldI && i !== newI) return loc;
+      if (i === oldI) return Object.assign(
+        {},
+        loc,
+        { npc: false }
+      );
+      if (i === newI) return Object.assign(
+        {},
+        loc,
+        { npc: action.npcId }
+      );
+    });
+  }
+
   if (action.type === 'SPAWN_BERRY') {
     return state.map(loc => {
       const isSpecifiedLocation = loc.x === action.x && loc.y === action.y

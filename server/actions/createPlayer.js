@@ -17,8 +17,6 @@ module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
     y: randomUnoccupiedLocation.y,
   };
 
-  console.log(action);
-
   // It is important actionsList.push(action) comes before dispatch(action)
   // dispatch triggers a websocket push
   // and this push is a set of actions

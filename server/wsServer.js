@@ -9,6 +9,8 @@ const getNumBerries = require('./selectors/getNumBerries.js');
 const getNumMushrooms = require('./selectors/getNumMushrooms.js');
 const getNumNpcs = require('./selectors/getNumNpcs.js');
 
+const tryToMoveNpcInRandomDirection = require('./actions/tryToMoveNpcInRandomDirection.js');
+
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
     server: httpServer,
@@ -21,18 +23,29 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       spawnBerry({}, store, actionsList);
     if (getNumMushrooms(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-    if (getNumNpcs(store.getState()) < 10)
+    if (getNumNpcs(store.getState()) < 25)
       spawnNpc({}, store, actionsList);
   }, 1000);
 
+  setInterval(() => {
+    store.getState().npcs.forEach(npc => {
+      const opts = { npcId: npc.id };
+      tryToMoveNpcInRandomDirection(opts, store, actionsList);
+    });
+  }, 500);
+
   wsServer.on('connection', connection => {
 
-    // send preloaded state, and get haveProcessedBefore ready for use
-    let haveProcessedBefore = actionsList.length;
-    connection.send(JSON.stringify({
-      state: store.getState(),
-      haveProcessedBefore: actionsList.length,
-    }));
+    let haveProcessedBefore;
+
+    if (connection.readyState === connection.OPEN) {
+      // send preloaded state, and get haveProcessedBefore ready for use
+      haveProcessedBefore = actionsList.length;
+      connection.send(JSON.stringify({
+        state: store.getState(),
+        haveProcessedBefore: actionsList.length,
+      }));
+    }
 
     // on incoming message, trigger relevant action
     connection.on('message', dataString => {

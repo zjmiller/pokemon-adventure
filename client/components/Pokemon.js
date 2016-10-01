@@ -8,8 +8,6 @@ class Pokemon extends Component {
     const { backgroundPosition, backgroundSize } = this.props.species;
     const imgURL = './imgs/' + this.props.species.img;
 
-    console.log(this.props.color);
-
     const styles = {
       backgroundColor: this.props.isPlayer ? rgbToRgba(this.props.color, 0.5) : 'transparent',
       backgroundImage: `url(${imgURL})`,
