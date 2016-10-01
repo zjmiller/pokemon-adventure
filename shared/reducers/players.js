@@ -68,20 +68,35 @@ module.exports = (state, action) => {
     return state.map(player => {
       const isPlayerSpecified = player.id === action.playerId;
       if (!isPlayerSpecified) return player;
-      return Object.assign(
-        {},
-        player,
-        {
-          hp: player.hp - action.damage,
-          pokedex: Object.assign(
-            {},
-            player.pokedex,
-            {
-              [action.speciesId]: (player.pokedex[action.speciesId] || 0) + 1,
-            }
-          ),
-        }
-      );
+      if (player.hp - action.damage > 0) {
+        // if player doesn't die
+        return Object.assign(
+          {},
+          player,
+          {
+            hp: player.hp - action.damage,
+            pokedex: Object.assign(
+              {},
+              player.pokedex,
+              {
+                [action.speciesId]: (player.pokedex[action.speciesId] || 0) + 1,
+              }
+            ),
+          }
+        );
+      } else {
+        // if player does die,
+        // reset hp and reset pokemon except for what person currently is
+        return Object.assign(
+          {},
+          player,
+          {
+            hp: 10,
+            pokedex: [{pokemonSpeciesId: 1}],
+          }
+        );
+      }
+
     })
   }
 
