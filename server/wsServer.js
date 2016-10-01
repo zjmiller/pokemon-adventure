@@ -1,4 +1,4 @@
-const WebSocketServer = require('websocket').server;
+const WebSocketServer = require('ws').Server;
 const createPlayer = require('./actions/createPlayer.js');
 const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
@@ -10,8 +10,7 @@ const getNumMushroomsOnMap = require('./selectors/getNumMushroomsOnMap.js');
 
 module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServerOpts = {
-    httpServer,
-    autoAcceptConnections: true,
+    server: httpServer,
   };
 
   const wsServer = new WebSocketServer(wsServerOpts);
@@ -24,7 +23,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
     spawnNpc({}, store, actionsList);
   }, 1000);
 
-  const wsServerConnectHandler = connection => {
+  wsServer.on('connection', connection => {
 
     // send preloaded state, and get haveProcessedBefore ready for use
     let haveProcessedBefore = actionsList.length;
@@ -34,10 +33,10 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
     }));
 
     // on incoming message, trigger relevant action
-    connection.on('message', message => {
-      const msg = JSON.parse(message.utf8Data);
-      if (msg.action === 'createPlayer') createPlayer(msg.options, store, actionsList);
-      if (msg.action === 'movePlayer') movePlayer(msg.options, store, actionsList);
+    connection.on('message', dataString => {
+      const data = JSON.parse(dataString);
+      if (data.action === 'createPlayer') createPlayer(data.options, store, actionsList);
+      if (data.action === 'movePlayer') movePlayer(data.options, store, actionsList);
     });
 
     // respond to incoming action indirectly via store changes
@@ -49,7 +48,5 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       haveProcessedBefore = actionsList.length;
       connection.send(JSON.stringify(returnMsg));
     });
-  };
-
-  wsServer.on('connect', wsServerConnectHandler);
+  });
 }
