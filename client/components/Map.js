@@ -5,7 +5,7 @@ import Terrain from './Terrain';
 import Item from './Item';
 import isPlayerHidden from '../selectors/isPlayerHidden';
 
-function Map({ players, berries, mushrooms }) {
+function Map({ players, berries, mushrooms, npcs }) {
   return (
     <div style={{
       height: '640px',
@@ -31,6 +31,9 @@ function Map({ players, berries, mushrooms }) {
       {mushrooms.map(({x, y, itemType}) =>
         <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
       )}
+      {npcs.map(({id, x, y, facing, species}) =>
+        <Pokemon key={id} x={x} y={y} z={2} facing={facing} species={species} />
+      )}
     </div>
   );
 }
@@ -54,6 +57,19 @@ const mapStateToProps = state => {
     })
   );
 
+  const npcs = state.npcs.map(npc => {
+    const { x, y } = state.locations.find(loc => loc.npc === npc.id);
+    const species = state.pokemonSpecies.find(species => species.id === npc.pokemonSpeciesId);
+
+    return {
+      id: npc.id,
+      x,
+      y,
+      facing: npc.facing,
+      species,
+    };
+  });
+
   const players = state.players.map(player => {
     const { x, y } = state.locations.find(loc => loc.player === player.id);
     const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
@@ -73,6 +89,7 @@ const mapStateToProps = state => {
   return {
     berries,
     mushrooms,
+    npcs,
     players,
   };
 };

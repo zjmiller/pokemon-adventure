@@ -3,6 +3,7 @@ const createPlayer = require('./actions/createPlayer.js');
 const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
 const spawnMushroom = require('./actions/spawnMushroom.js');
+const spawnNpc = require('./actions/spawnNpc.js');
 
 const getNumBerriesOnMap = require('./selectors/getNumBerriesOnMap.js');
 const getNumMushroomsOnMap = require('./selectors/getNumMushroomsOnMap.js');
@@ -16,11 +17,12 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
   const wsServer = new WebSocketServer(wsServerOpts);
 
   setInterval(() => {
-    if (getNumBerriesOnMap(store.getState()) < 55)
+    if (getNumBerriesOnMap(store.getState()) < 10)
       spawnBerry({}, store, actionsList);
     if (getNumMushroomsOnMap(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-  }, 100);
+    spawnNpc({}, store, actionsList);
+  }, 1000);
 
   const wsServerConnectHandler = connection => {
 

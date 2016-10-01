@@ -83,6 +83,18 @@ module.exports = function(state, action) {
     });
   }
 
+  if (action.type === 'SPAWN_NPC') {
+    return state.map(loc => {
+      const isSpecifiedLocation = loc.x === action.x && loc.y === action.y
+      if (!isSpecifiedLocation) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { npc: action.npcId }
+      );
+    });
+  }
+
   if (action.type === 'EAT_BERRY') {
     return state.map(loc => {
       const playerIsHere = loc.player === action.playerId;

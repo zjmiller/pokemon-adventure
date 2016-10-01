@@ -1,9 +1,4 @@
-import pokemonSoFar from './pokemonSoFar';
-
-export default function getRandomPokemonSpecies() {
-  const weights = pokemonSoFar.map(id => relativeRarity(id));
-  return getRandomArrayElemWithWeights(pokemonSoFar, weights);
-}
+const pokemonSoFar = require('./pokemonSoFar');
 
 function relativeRarity(speciesId) {
   if (speciesId === 1) return 20;     // Bulbasaur
@@ -58,4 +53,9 @@ function getRandomArrayElemWithWeights(items, weights) {
     if (ran < s) return items[i];
   }
   return items[items.length - 1];
+}
+
+module.exports = function getRandomPokemonSpecies() {
+  const weights = pokemonSoFar.map(id => relativeRarity(id));
+  return getRandomArrayElemWithWeights(pokemonSoFar, weights);
 }

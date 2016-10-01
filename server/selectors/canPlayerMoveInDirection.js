@@ -1,6 +1,6 @@
 const isPlayerTryingToMoveOutOfBounds = require('./isPlayerTryingToMoveOutOfBounds');
 const getLocationPlayerIsTryingToMoveTo = require('./getLocationPlayerIsTryingToMoveTo');
-const isLocationUnoccupiedByPlayerAndNPC = require('./isLocationUnoccupiedByPlayerAndNPC');
+const isLocationUnoccupiedByPlayer = require('./isLocationUnoccupiedByPlayer');
 const getTerrainPlayerIsTryingToMoveTo = require('./getTerrainPlayerIsTryingToMoveTo');
 const canTerrainBeMovedIntoFromDirection = require('./canTerrainBeMovedIntoFromDirection.js');
 
@@ -9,8 +9,8 @@ module.exports = function canPlayerMoveInDirection(state, playerId, direction) {
   if (playerIsTryingToMoveOutOfBounds) return false;
 
   const location = getLocationPlayerIsTryingToMoveTo(state, playerId, direction);
-  const locationIsOccupiedByPlayerOrNPC = isLocationUnoccupiedByPlayerAndNPC(state, location);
-  if (!locationIsOccupiedByPlayerOrNPC) return false;
+  const locationIsOccupiedByPlayer = isLocationUnoccupiedByPlayer(state, location);
+  if (!locationIsOccupiedByPlayer) return false;
 
   const terrain = getTerrainPlayerIsTryingToMoveTo(state, playerId, direction);
   const terrainCanBeMovedIntoFromDirection = canTerrainBeMovedIntoFromDirection(state, terrain, direction);
