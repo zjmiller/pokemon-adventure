@@ -1,4 +1,4 @@
-const randomColor = require('randomColor');
+const randomColor = require('randomcolor');
 const getRandomUnoccupiedLocation = require('../selectors/getRandomUnoccupiedLocation.js');
 
 module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
