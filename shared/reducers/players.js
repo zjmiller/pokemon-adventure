@@ -63,5 +63,26 @@ module.exports = (state, action) => {
     });
   }
 
+  if (action.type === 'EAT_NPC') {
+    return state.map(player => {
+      const isPlayerSpecified = player.id === action.playerId;
+      if (!isPlayerSpecified) return player;
+      return Object.assign(
+        {},
+        player,
+        {
+          hp: player.hp - action.damage,
+          pokedex: Object.assign(
+            {},
+            player.pokedex,
+            {
+              [action.speciesId]: (player.pokedex[action.speciesId] || 0) + 1,
+            }
+          ),
+        }
+      );
+    })
+  }
+
   return state;
 };

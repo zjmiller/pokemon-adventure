@@ -119,5 +119,17 @@ module.exports = function(state, action) {
     })
   }
 
+  if (action.type === 'EAT_NPC') {
+    return state.map(loc => {
+      const npcIsHere = loc.npc === action.npcId;
+      if (!npcIsHere) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { npc: false }
+      );
+    })
+  }
+
   return state;
 }

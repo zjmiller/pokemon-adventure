@@ -29,7 +29,7 @@ module.exports = function(state, action){
     return newState;
   }
 
-  if (action.type === 'EAT_POKEMON') {
+  if (action.type === 'EAT_NPC') {
     return state.filter(npc => npc.id !== action.npcId);
   }
 
