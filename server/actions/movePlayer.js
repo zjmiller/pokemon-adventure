@@ -1,6 +1,6 @@
 const canPlayerMoveInDirection = require('../selectors/canPlayerMoveInDirection');
-const isPlayerOnTopOfBerry = require('../selectors/isPlayerOnTopOfBerry');
-const isPlayerOnTopOfMushroom = require('../selectors/isPlayerOnTopOfMushroom');
+const isPlayerOnBerry = require('../selectors/isPlayerOnBerry');
+const isPlayerOnMushroom = require('../selectors/isPlayerOnMushroom');
 const isPlayerOnNpc = require('../selectors/isPlayerOnNpc');
 const getIdOfNpcPlayerIsOn = require('../selectors/getIdOfNpcPlayerIsOn');
 const getNpcDamage = require('../selectors/getNpcDamage');
@@ -18,8 +18,8 @@ module.exports = ({ playerId, direction }, { dispatch, getState }, actionsList) 
     actionsList.push(action);
     dispatch(action);
 
-    const playerIsOnTopOfBerry = isPlayerOnTopOfBerry(getState(), playerId);
-    if (playerIsOnTopOfBerry) {
+    const playerIsOnBerry = isPlayerOnBerry(getState(), playerId);
+    if (playerIsOnBerry) {
       const action = {
         type: 'EAT_BERRY',
         playerId,
@@ -28,8 +28,8 @@ module.exports = ({ playerId, direction }, { dispatch, getState }, actionsList) 
       dispatch(action);
     }
 
-    const playerIsOnTopOfMushroom = isPlayerOnTopOfMushroom(getState(), playerId);
-    if (playerIsOnTopOfMushroom) {
+    const playerIsOnMushroom = isPlayerOnMushroom(getState(), playerId);
+    if (playerIsOnMushroom) {
       const action = {
         type: 'EAT_MUSHROOM',
         playerId,
