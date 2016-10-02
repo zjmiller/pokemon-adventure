@@ -5,7 +5,7 @@ import Terrain from './Terrain';
 import Item from './Item';
 import isPlayerHidden from '../selectors/isPlayerHidden';
 
-function Map({ players, berries, mushrooms, npcs }) {
+function Map({ players, berries, mushrooms, gems, npcs }) {
   return (
     <div style={{
       height: '640px',
@@ -30,6 +30,9 @@ function Map({ players, berries, mushrooms, npcs }) {
         <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
       )}
       {mushrooms.map(({x, y, itemType}) =>
+        <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
+      )}
+      {gems.map(({x, y, itemType}) =>
         <Item key={[x, y]} x={x} y={y} z={2} itemType={itemType} />
       )}
       {npcs.map(({id, x, y, facing, species}) =>
@@ -58,6 +61,15 @@ const mapStateToProps = state => {
     })
   );
 
+  const gems = state.locations
+    .filter(loc => loc.gem)
+    .map(loc => ({
+      x: loc.x,
+      y: loc.y,
+      itemType: state.itemTypes.find(item => item.id === 3),
+    })
+  );
+
   const npcs = state.npcs.map(npc => {
     const { x, y } = state.locations.find(loc => loc.npc === npc.id);
     const species = state.pokemonSpecies.find(species => species.id === npc.pokemonSpeciesId);
@@ -75,7 +87,7 @@ const mapStateToProps = state => {
     const { x, y } = state.locations.find(loc => loc.player === player.id);
     const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
     const hidden = isPlayerHidden(state, player.id);
-    
+
     return Object.assign(
       {},
       player,
@@ -91,6 +103,7 @@ const mapStateToProps = state => {
   return {
     berries,
     mushrooms,
+    gems,
     npcs,
     players,
   };

@@ -4,6 +4,7 @@ const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
 const spawnMushroom = require('./actions/spawnMushroom.js');
 const spawnNpc = require('./actions/spawnNpc.js');
+const spawnGem = require('./actions/spawnGem.js');
 const changeSpecies = require('./actions/changeSpecies.js');
 const tradeInSpecies = require('./actions/tradeInSpecies.js');
 const getNumBerries = require('./selectors/getNumBerries.js');

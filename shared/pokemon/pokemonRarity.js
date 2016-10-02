@@ -23,6 +23,8 @@ function relativeRarity(speciesId) {
   if (speciesId === 19) return 80;    // Raticate
   if (speciesId === 21) return 30;    // Spearow
   if (speciesId === 22) return 3;     // Fearow
+  if (speciesId === 77) return 50;     // Fearow
+  if (speciesId === 78) return 50;     // Fearow
   if (speciesId === 95) return 3;     // Onix
   if (speciesId === 107) return 10;   // Hitmonchan
   if (speciesId === 109) return 10;   // Koffing

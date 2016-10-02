@@ -212,6 +212,25 @@ const initialState = [
   },
 
   {
+    id: 77,
+    name: 'Ponyta',
+    img: 'ponyta-front.png',
+    backgroundPosition: '-15px -15px',
+    backgroundSize: '60px 60px',
+    damage: 5,
+    evolution: 78,
+  },
+
+  {
+    id: 78,
+    name: 'Rapidash',
+    img: 'rapidash-front.png',
+    backgroundPosition: '-7px -7px',
+    backgroundSize: '45px 45px',
+    damage: 8,
+  },
+
+  {
     id: 95,
     name: 'Onix',
     img: 'onix-front.png',

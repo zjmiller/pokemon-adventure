@@ -36,6 +36,8 @@ module.exports = (state, action) => {
 
   if (action.type === 'CREATE_PLAYER') {
     if (state.some(player => player.id === action.playerId)) return state;
+    const pokedex = {};
+    pokedex[action.pokemonSpeciesId] = 1;
 
     return state.concat({
       id: action.playerId,
@@ -43,7 +45,7 @@ module.exports = (state, action) => {
       facing: 'left',
       hp: 10,
       pokemonSpeciesId: action.pokemonSpeciesId,
-      pokedex: [{pokemonSpeciesId: 1}],
+      pokedex,
     });
   }
 
