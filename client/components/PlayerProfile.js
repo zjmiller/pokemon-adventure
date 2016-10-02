@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Pokedex from './Pokedex';
 
-function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies }){
+function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies, handleSpeciesTradeIn }){
   let hpBarColor;
   if (hp > 8) {
     hpBarColor = '#090';
@@ -16,6 +16,7 @@ function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies
   for (let i = 0; i < hp; i++) {
     hpBlocks.push(
       <div
+        key={i}
         style={{
           backgroundClip: 'content-box',
           backgroundColor: hpBarColor,
@@ -39,7 +40,12 @@ function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies
         { playerId }
       </div>
       { hpBlocks }
-      <Pokedex playerId={playerId} yourPokedex={yourProfile} handleChangeSpecies={handleChangeSpecies} />
+      <Pokedex
+        playerId={playerId}
+        yourPokedex={yourProfile}
+        handleChangeSpecies={handleChangeSpecies}
+        handleSpeciesTradeIn={handleSpeciesTradeIn}
+      />
     </div>
   );
 }

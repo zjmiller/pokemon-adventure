@@ -3,6 +3,26 @@ const initialState = [];
 module.exports = (state, action) => {
   if (state === undefined) state = initialState;
 
+  if (action.type === 'TRADE_IN_SPECIES') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        {
+          pokedex: Object.assign(
+            {},
+            player.pokedex,
+            {
+              [action.pokemonSpeciesId]: player.pokedex[action.pokemonSpeciesId] - 3,
+              [action.evolutionId]: (player.pokedex[action.evolutionId] || 0) + 1,
+            }
+          ),
+        }
+      );
+    });
+  }
+
   if (action.type === 'CHANGE_SPECIES') {
     return state.map(player => {
       if (player.id !== action.playerId) return player;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import canSpeciesEvolve from '../selectors/canSpeciesEvolve';
 
-function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpecies }) {
+function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpecies, handleSpeciesTradeIn }) {
   const squares = [];
 
   pokemonSpecies.forEach((species, i) => {
@@ -23,7 +24,7 @@ function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpec
 
     const capturedThreeOrMore = hasCaptured && pokedex[species.id] >= 3;
 
-    const thisSpeciesCanEvolve = true;
+    const thisSpeciesCanEvolve = canSpeciesEvolve(state, species.id);
 
     squares.push(
       <div
@@ -60,6 +61,7 @@ function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpec
             textAlign: 'center',
             width: '14px',
           }}
+            onClick={() => pokedex[species.id] >= 3 ? handleSpeciesTradeIn(species.id) : undefined}
           >{species && pokedex[species.id]} </div>: ''}
       </div>
     );

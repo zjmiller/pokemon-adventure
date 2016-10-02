@@ -75,7 +75,7 @@ const mapStateToProps = state => {
     const { x, y } = state.locations.find(loc => loc.player === player.id);
     const species = state.pokemonSpecies.find(species => species.id === player.pokemonSpeciesId)
     const hidden = isPlayerHidden(state, player.id);
-    console.log(player);
+    
     return Object.assign(
       {},
       player,

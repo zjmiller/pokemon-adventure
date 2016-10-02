@@ -3,7 +3,7 @@ import HPBar from './HPBar';
 import Map from './Map';
 import PlayerProfiles from './PlayerProfiles';
 
-function App({ playerId, handleChangeSpecies }) {
+function App({ playerId, handleChangeSpecies, handleSpeciesTradeIn }) {
   return (
     <div
       style={{
@@ -13,7 +13,11 @@ function App({ playerId, handleChangeSpecies }) {
       }}
     >
       <HPBar playerId={playerId} />
-      <PlayerProfiles playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
+      <PlayerProfiles
+        playerId={playerId}
+        handleChangeSpecies={handleChangeSpecies}
+        handleSpeciesTradeIn={handleSpeciesTradeIn}
+      />
       <Map />
     </div>
   );

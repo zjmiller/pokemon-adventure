@@ -11,3 +11,6 @@
 - using ws instead of websocket
 - with ws, make sure server checks connection state before sending message
 - otherwise server might crash because it's trying to send messages during browser refresh
+
+TO LOOK AT
+- passing state as prop in Pokedex, more general question, how do you pass a function that takes state as an argument? using a selector in the component, not just in the determination of the component's props

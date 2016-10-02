@@ -8,6 +8,7 @@ import App from './components/App';
 import createPlayer from './actions/createPlayer';
 import movePlayer from './actions/movePlayer';
 import changeSpecies from './actions/changeSpecies';
+import tradeInSpecies from './actions/tradeInSpecies';
 import doesPlayerExist from './selectors/doesPlayerExist';
 
 // declare store up here so it can be accessed throughout
@@ -39,7 +40,11 @@ ws.onmessage = message => {
     if (playerDoesExist) {
       ReactDOM.render(
         <Provider store={store}>
-          <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
+          <App
+            playerId={playerId}
+            handleChangeSpecies={handleChangeSpecies}
+            handleSpeciesTradeIn={handleSpeciesTradeIn}
+          />
         </Provider>,
         document.getElementById('root')
       );
@@ -56,7 +61,11 @@ ws.onmessage = message => {
       if (playerDoesExist) {
         ReactDOM.render(
           <Provider store={store}>
-            <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
+            <App
+              playerId={playerId}
+              handleChangeSpecies={handleChangeSpecies}
+              handleSpeciesTradeIn={handleSpeciesTradeIn}
+            />
           </Provider>,
           document.getElementById('root')
         );
@@ -70,7 +79,11 @@ ws.onmessage = message => {
 };
 
 function handleChangeSpecies(speciesId){
-  changeSpecies(ws, haveProcessedBefore, { playerId, speciesId })
+  changeSpecies(ws, haveProcessedBefore, { playerId, speciesId });
+}
+
+function handleSpeciesTradeIn(speciesId){
+  tradeInSpecies(ws, haveProcessedBefore, { playerId, speciesId });
 }
 
 // event listeners
