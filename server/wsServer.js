@@ -32,7 +32,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       const opts = { npcId: npc.id };
       tryToMoveNpcInRandomDirection(opts, store, actionsList);
     });
-  }, 1000);
+  }, 100);
 
   wsServer.on('connection', connection => {
 

@@ -8,6 +8,8 @@ function PlayerProfile({ playerId, bgColor }){
       <div
         style={{
           backgroundColor: bgColor,
+          marginBottom: '10px',
+          padding: '10px',
         }}
       >
         { playerId }

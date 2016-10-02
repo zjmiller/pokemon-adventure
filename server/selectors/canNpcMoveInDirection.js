@@ -2,7 +2,8 @@ const isNpcTryingToMoveOutOfBounds = require('./isNpcTryingToMoveOutOfBounds');
 const getLocationNpcIsTryingToMoveTo = require('./getLocationNpcIsTryingToMoveTo');
 const isLocationUnoccupiedByNpc = require('./isLocationUnoccupiedByNpc');
 const getTerrainNpcIsTryingToMoveTo = require('./getTerrainNpcIsTryingToMoveTo');
-const canTerrainBeMovedIntoFromDirection = require('./canTerrainBeMovedIntoFromDirection.js');
+const canTerrainBeMovedIntoFromDirection = require('./canTerrainBeMovedIntoFromDirection');
+const isLocationOccupiedByHiddenPlayer = require('./isLocationOccupiedByHiddenPlayer');
 
 module.exports = function canNpcMoveInDirection(state, npcId, direction) {
   const npcIsTryingToMoveOutOfBounds = isNpcTryingToMoveOutOfBounds(state, npcId, direction);
@@ -11,6 +12,9 @@ module.exports = function canNpcMoveInDirection(state, npcId, direction) {
   const location = getLocationNpcIsTryingToMoveTo(state, npcId, direction);
   const locationIsOccupiedByNpc = !isLocationUnoccupiedByNpc(state, location);
   if (locationIsOccupiedByNpc) return false;
+
+  const locationIsOccupiedByHiddenPlayer = isLocationOccupiedByHiddenPlayer(state, location);
+  if (locationIsOccupiedByHiddenPlayer) return false;
 
   const terrain = getTerrainNpcIsTryingToMoveTo(state, npcId, direction);
   const terrainCanBeMovedIntoFromDirection = canTerrainBeMovedIntoFromDirection(state, terrain, direction);

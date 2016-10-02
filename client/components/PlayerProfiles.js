@@ -8,7 +8,7 @@ function PlayerProfiles({ playerId, otherPlayerIds }){
       float: 'right',
       height: '1500px',
       position: 'relative',
-      width: '276px',
+      width: '248px',
     }}>
       <PlayerProfile playerId={playerId} />
       {otherPlayerIds.map(otherPlayerId => <PlayerProfile key={otherPlayerId} playerId={otherPlayerId} />)}
