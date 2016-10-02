@@ -59,7 +59,7 @@ module.exports = (state, action) => {
       return Object.assign(
         {},
         player,
-        { hp: player.hp + 1 }
+        { hp: Math.min(player.hp + 1, 20) }
       );
     });
   }
@@ -70,7 +70,7 @@ module.exports = (state, action) => {
       return Object.assign(
         {},
         player,
-        { hp: player.hp - 1 }
+        { hp: Math.max(player.hp - 1, 0) }
       );
     });
   }
@@ -79,35 +79,20 @@ module.exports = (state, action) => {
     return state.map(player => {
       const isPlayerSpecified = player.id === action.playerId;
       if (!isPlayerSpecified) return player;
-      if (player.hp - action.damage > 0) {
-        // if player doesn't die
-        return Object.assign(
-          {},
-          player,
-          {
-            hp: player.hp - action.damage,
-            pokedex: Object.assign(
-              {},
-              player.pokedex,
-              {
-                [action.speciesId]: (player.pokedex[action.speciesId] || 0) + 1,
-              }
-            ),
-          }
-        );
-      } else {
-        // if player does die,
-        // reset hp and reset pokemon except for what person currently is
-        return Object.assign(
-          {},
-          player,
-          {
-            hp: 10,
-            pokedex: [{pokemonSpeciesId: 1}],
-          }
-        );
-      }
-
+      return Object.assign(
+        {},
+        player,
+        {
+          hp: Math.max(player.hp - action.damage, 0),
+          pokedex: Object.assign(
+            {},
+            player.pokedex,
+            {
+              [action.speciesId]: (player.pokedex[action.speciesId] || 0) + 1,
+            }
+          ),
+        }
+      );
     })
   }
 

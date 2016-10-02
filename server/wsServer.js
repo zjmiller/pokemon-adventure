@@ -8,7 +8,6 @@ const changeSpecies = require('./actions/changeSpecies.js');
 const getNumBerries = require('./selectors/getNumBerries.js');
 const getNumMushrooms = require('./selectors/getNumMushrooms.js');
 const getNumNpcs = require('./selectors/getNumNpcs.js');
-
 const tryToMoveNpcInRandomDirection = require('./actions/tryToMoveNpcInRandomDirection.js');
 
 module.exports = function createWsServer(httpServer, store, actionsList) {
