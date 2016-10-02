@@ -1,5 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import getSpeciesDamage from '../selectors/getSpeciesDamage';
+import getUniqueSpeciesOnMap from '../selectors/getUniqueSpeciesOnMap';
+import DmgGuide from './DmgGuide';
 
 function genHPBlocks(hp) {
   const result = [];
@@ -39,7 +42,7 @@ function genHPBlocks(hp) {
           border: '1px solid transparent',
           boxShadow: `${boxShadowColor} 0 0 5px inset`,
           height: '32px',
-          marginLeft: (50 - 32 - 5) + 'px',
+          marginLeft: (175 - 32 - 5) + 'px',
           opacity: 1,
           width: '32px',
         }}
@@ -49,17 +52,39 @@ function genHPBlocks(hp) {
   return result;
 }
 
-function HPBar({ hp }){
+function HPBar({ hp, speciesAndDmgInfo }){
   const hpBlocks = genHPBlocks(hp);
+  const numberAtDmgLevel = [];
+  const dmgGuides = speciesAndDmgInfo.sort((a, b) =>
+    a.speciesId < b.speciesId ? -1 : 1
+  ).map(unit => {
+
+    numberAtDmgLevel[unit.damage] =
+      numberAtDmgLevel[unit.damage]
+      ? numberAtDmgLevel[unit.damage] + 1
+      : 1;
+
+    return (
+      <DmgGuide
+        key={unit.speciesId}
+        speciesId={unit.speciesId}
+        damage={unit.damage}
+        numberAtDmgLevel={numberAtDmgLevel[unit.damage]}
+      />
+    );
+
+  });
   return (
     <div
       style={{
         float: 'left',
         height: '640px',
-        width: '50px',
+        position: 'relative',
+        width: '175px',
       }}
     >
     {hpBlocks}
+    {dmgGuides}
     </div>
   );
 }
@@ -68,6 +93,12 @@ const mapStateToProps = (state, { playerId }) => {
   const player = state.players.find(player => player.id === playerId);
   return {
     hp: player ? player.hp : 0,
+    speciesAndDmgInfo: getUniqueSpeciesOnMap(state).map(
+    speciesId => ({
+      speciesId,
+      damage: getSpeciesDamage(state, speciesId),
+    })
+  ),
   };
 };
 

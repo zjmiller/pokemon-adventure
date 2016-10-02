@@ -22,6 +22,7 @@ const playerId = localStorage.getItem('pokemon-player-id');
 // this keeps track of which actions have been fed thru reducer
 // E.g., 5 means that's every action before the 5th has been eaten
 let haveProcessedBefore = 0;
+let haveRendered = false;
 
 const ws = new WebSocket(location.origin.replace(/^http/, 'ws'), 'protocol-1');
 
@@ -35,19 +36,33 @@ ws.onmessage = message => {
     // create player if needed
     const playerDoesExist = doesPlayerExist(store.getState(), playerId);
     if (!playerDoesExist) createPlayer(ws, haveProcessedBefore, { playerId });
+    if (playerDoesExist) {
+      ReactDOM.render(
+        <Provider store={store}>
+          <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
+        </Provider>,
+        document.getElementById('root')
+      );
+      haveRendered = true;
+    }
 
-    // render React hierarchy
-    ReactDOM.render(
-      <Provider store={store}>
-        <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
-      </Provider>,
-      document.getElementById('root')
-    );
   } else {
     // process incoming actions
     // console.log(JSON.stringify(data));
     data.actionsToProcess.forEach(action => store.dispatch(action));
     // console.log(playerId, store.getState());
+    if (!haveRendered) {
+      const playerDoesExist = doesPlayerExist(store.getState(), playerId);
+      if (playerDoesExist) {
+        ReactDOM.render(
+          <Provider store={store}>
+            <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
+          </Provider>,
+          document.getElementById('root')
+        );
+        haveRendered = true;
+      }
+    }
   }
 
   // either way, update count so we know which actions we've processed

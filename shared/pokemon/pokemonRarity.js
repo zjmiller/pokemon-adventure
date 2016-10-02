@@ -23,11 +23,11 @@ function relativeRarity(speciesId) {
   if (speciesId === 19) return 80;    // Raticate
   if (speciesId === 21) return 30;    // Spearow
   if (speciesId === 22) return 3;     // Fearow
-  if (speciesId === 95) return 50;     // Fearow
+  if (speciesId === 95) return 3;     // Onix
   if (speciesId === 107) return 10;   // Hitmonchan
-  if (speciesId === 109) return 50;   // Koffing
-  if (speciesId === 110) return 10;   // Weezing
-  if (speciesId === 111) return 10;   // Rhyhorn
+  if (speciesId === 109) return 10;   // Koffing
+  if (speciesId === 110) return 1;   // Weezing
+  if (speciesId === 111) return 5;   // Rhyhorn
   if (speciesId === 112) return 1;   // Rhydon
   if (speciesId === 124) return 5;   // Jynx
   if (speciesId === 129) return 50;   // Magikarp
@@ -36,9 +36,9 @@ function relativeRarity(speciesId) {
   if (speciesId === 134) return 1;   // Vaporeon
   if (speciesId === 150) return 1;   // Mewto
   if (speciesId === 151) return 1;   // Mew
-  if (speciesId === 152) return 80;   // Treecko
-  if (speciesId === 153) return 80;   // Grovyle
-  if (speciesId === 154) return 80;   // Sceptile
+  if (speciesId === 152) return 4;   // Treecko
+  if (speciesId === 153) return 1;   // Grovyle
+  if (speciesId === 154) return 1;   // Sceptile
   return 0;
 }
 

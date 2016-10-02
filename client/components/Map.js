@@ -9,7 +9,7 @@ function Map({ players, berries, mushrooms, npcs }) {
   return (
     <div style={{
       height: '640px',
-      marginLeft: '50px',
+      marginLeft: '175px',
       position: 'relative',
       width: '960px',
     }}>

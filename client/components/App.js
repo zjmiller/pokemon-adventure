@@ -9,7 +9,7 @@ function App({ playerId, handleChangeSpecies }) {
       style={{
         height: '640px',
         margin: '20px',
-        width: '1295px',
+        width: '1395px',
       }}
     >
       <HPBar playerId={playerId} />
