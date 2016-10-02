@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-function Pokedex({ pokedex, pokemonSpecies, state }) {
+function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpecies }) {
   const squares = [];
 
   pokemonSpecies.forEach((species, i) => {
@@ -29,7 +29,7 @@ function Pokedex({ pokedex, pokemonSpecies, state }) {
       <div
         key={i}
         style={{
-          backgroundColor: '#f8f8f8',
+          backgroundColor:'#f8f8f8',
           backgroundImage: canCapture && `url(${img})`,
           backgroundPosition,
           backgroundSize,
@@ -43,6 +43,7 @@ function Pokedex({ pokedex, pokemonSpecies, state }) {
           WebkitFilter: (canCapture && !hasCaptured) ? 'grayscale(500%)' : '',
           width: '32px',
         }}
+        onClick={hasCaptured ? () => handleChangeSpecies(species.id) : () => {} }
       >
         {hasCaptured ? <div style={{
             backgroundColor: (capturedThreeOrMore && thisSpeciesCanEvolve) ? 'rgba(255, 100, 100, 0.85)' : 'rgba(255, 255, 255, 0.85)',
@@ -76,7 +77,6 @@ function Pokedex({ pokedex, pokemonSpecies, state }) {
 }
 
 const mapStateToProps = (state, { playerId }) => {
-  console.log(playerId);
   return {
     state: state,
     pokedex: state.players.find(player => player.id === playerId).pokedex,

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Pokedex from './Pokedex';
 
-function PlayerProfile({ playerId, bgColor }){
+function PlayerProfile({ playerId, bgColor, yourProfile, handleChangeSpecies }){
   return (
     <div>
       <div
@@ -14,7 +14,7 @@ function PlayerProfile({ playerId, bgColor }){
       >
         { playerId }
       </div>
-      <Pokedex playerId={playerId} />
+      <Pokedex playerId={playerId} yourPokedex={yourProfile} handleChangeSpecies={handleChangeSpecies} />
     </div>
   );
 }

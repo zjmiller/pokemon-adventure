@@ -3,6 +3,17 @@ const initialState = [];
 module.exports = (state, action) => {
   if (state === undefined) state = initialState;
 
+  if (action.type === 'CHANGE_SPECIES') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        { pokemonSpeciesId: action.pokemonSpeciesId }
+      );
+    });
+  }
+
   if (action.type === 'CREATE_PLAYER') {
     if (state.some(player => player.id === action.playerId)) return state;
 

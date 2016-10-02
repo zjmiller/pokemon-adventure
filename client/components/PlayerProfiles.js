@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PlayerProfile from './PlayerProfile';
 
-function PlayerProfiles({ playerId, otherPlayerIds }){
+function PlayerProfiles({ playerId, otherPlayerIds, handleChangeSpecies }){
   return (
     <div style={{
       float: 'right',
@@ -10,8 +10,8 @@ function PlayerProfiles({ playerId, otherPlayerIds }){
       position: 'relative',
       width: '248px',
     }}>
-      <PlayerProfile playerId={playerId} />
-      {otherPlayerIds.map(otherPlayerId => <PlayerProfile key={otherPlayerId} playerId={otherPlayerId} />)}
+      <PlayerProfile playerId={playerId} yourProfile={true} handleChangeSpecies={handleChangeSpecies} />
+      {otherPlayerIds.map(otherPlayerId => <PlayerProfile key={otherPlayerId} playerId={otherPlayerId} yourProfile={false} />)}
     </div>
   );
 }

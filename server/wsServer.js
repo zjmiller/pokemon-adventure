@@ -4,7 +4,7 @@ const movePlayer = require('./actions/movePlayer.js');
 const spawnBerry = require('./actions/spawnBerry.js');
 const spawnMushroom = require('./actions/spawnMushroom.js');
 const spawnNpc = require('./actions/spawnNpc.js');
-
+const changeSpecies = require('./actions/changeSpecies.js');
 const getNumBerries = require('./selectors/getNumBerries.js');
 const getNumMushrooms = require('./selectors/getNumMushrooms.js');
 const getNumNpcs = require('./selectors/getNumNpcs.js');
@@ -32,7 +32,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       const opts = { npcId: npc.id };
       tryToMoveNpcInRandomDirection(opts, store, actionsList);
     });
-  }, 100);
+  }, 1000);
 
   wsServer.on('connection', connection => {
 
@@ -52,6 +52,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       const data = JSON.parse(dataString);
       if (data.action === 'createPlayer') createPlayer(data.options, store, actionsList);
       if (data.action === 'movePlayer') movePlayer(data.options, store, actionsList);
+      if (data.action === 'changeSpecies') changeSpecies(data.options, store, actionsList);
     });
 
     // respond to incoming action indirectly via store changes

@@ -7,6 +7,7 @@ import rootReducer from '../shared/reducers/rootReducer';
 import App from './components/App';
 import createPlayer from './actions/createPlayer';
 import movePlayer from './actions/movePlayer';
+import changeSpecies from './actions/changeSpecies';
 import doesPlayerExist from './selectors/doesPlayerExist';
 
 // declare store up here so it can be accessed throughout
@@ -38,7 +39,7 @@ ws.onmessage = message => {
     // render React hierarchy
     ReactDOM.render(
       <Provider store={store}>
-        <App playerId={playerId} />
+        <App playerId={playerId} handleChangeSpecies={handleChangeSpecies} />
       </Provider>,
       document.getElementById('root')
     );
@@ -52,6 +53,10 @@ ws.onmessage = message => {
   // either way, update count so we know which actions we've processed
   haveProcessedBefore = data.haveProcessedBefore;
 };
+
+function handleChangeSpecies(speciesId){
+  changeSpecies(ws, haveProcessedBefore, { playerId, speciesId })
+}
 
 // event listeners
 window.addEventListener('keydown', e => {
