@@ -24,7 +24,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       spawnBerry({}, store, actionsList);
     if (getNumMushrooms(store.getState()) < 10)
       spawnMushroom({}, store, actionsList);
-    if (getNumNpcs(store.getState()) < 10)
+    if (getNumNpcs(store.getState()) < 5)
       spawnNpc({}, store, actionsList);
   }, 1000);
 
