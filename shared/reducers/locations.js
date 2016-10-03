@@ -161,6 +161,19 @@ module.exports = function(state, action) {
     })
   }
 
+  if (action.type === 'EAT_GEM') {
+    console.log('EATING GEM IN REDUCER');
+    return state.map(loc => {
+      const playerIsHere = loc.player === action.playerId;
+      if (!playerIsHere) return loc;
+      return Object.assign(
+        {},
+        loc,
+        { gem: false }
+      );
+    })
+  }
+
   if (action.type === 'EAT_NPC') {
     return state.map(loc => {
       const npcIsHere = loc.npc === action.npcId;

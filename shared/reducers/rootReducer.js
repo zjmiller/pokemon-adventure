@@ -5,6 +5,7 @@ const npcs = require('./npcs.js');
 const players = require('./players.js');
 const pokemonSpecies = require('./pokemonSpecies.js');
 const terrain = require('./terrain.js');
+const totalCounts = require('./totalCounts');
 
 module.exports = combineReducers({
   itemTypes,
@@ -13,4 +14,5 @@ module.exports = combineReducers({
   players,
   pokemonSpecies,
   terrain,
+  totalCounts,
 });

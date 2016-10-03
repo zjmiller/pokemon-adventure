@@ -4,6 +4,8 @@ const isNpcOnPlayer = require('../selectors/isNpcOnPlayer');
 const getIdOfPlayerNpcIsOn = require('../selectors/getIdOfPlayerNpcIsOn');
 const getSpeciesIdOfNpc = require('../selectors/getSpeciesIdOfNpc');
 const getNpcDamage = require('../selectors/getNpcDamage');
+const shouldCapturedNpcCauseGemSpawn = require('../selectors/shouldCapturedNpcCauseGemSpawn');
+const spawnGem = require('./spawnGem');
 
 module.exports = function tryToMoveNpcInRandomDirection({ npcId }, { dispatch, getState }, actionsList){
   const direction = getRandomDirection();
@@ -30,6 +32,9 @@ module.exports = function tryToMoveNpcInRandomDirection({ npcId }, { dispatch, g
 
       actionsList.push(action);
       dispatch(action);
+
+      const capturedNpcShouldCauseGemSpawn = shouldCapturedNpcCauseGemSpawn(getState());
+      if (capturedNpcShouldCauseGemSpawn) spawnGem({}, { dispatch, getState }, actionsList);
     }
   }
 };

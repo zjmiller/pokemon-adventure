@@ -61,7 +61,7 @@ function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpec
             textAlign: 'center',
             width: '14px',
           }}
-            onClick={() => pokedex[species.id] >= 3 ? handleSpeciesTradeIn(species.id) : undefined}
+            onClick={() => (capturedThreeOrMore && thisSpeciesCanEvolve) ? handleSpeciesTradeIn(species.id) : undefined}
           >{species && pokedex[species.id]} </div>: ''}
       </div>
     );

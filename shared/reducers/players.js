@@ -97,6 +97,26 @@ module.exports = (state, action) => {
     });
   }
 
+  if (action.type === 'EAT_GEM') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        {
+          pokemonSpeciesId: action.evolutionSpeciesId,
+          pokedex: Object.assign(
+            {},
+            player.pokedex,
+            {
+              [action.evolutionSpeciesId]: (player.pokedex[action.evolutionSpeciesId] || 0) + 1,
+            }
+          )
+        }
+      );
+    });
+  }
+
   if (action.type === 'EAT_NPC') {
     return state.map(player => {
       const isPlayerSpecified = player.id === action.playerId;
