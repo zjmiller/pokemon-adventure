@@ -212,6 +212,82 @@ const initialState = [
   },
 
   {
+    id: 23,
+    name: 'Ekans',
+    img: 'ekans-front.png',
+    backgroundPosition: '-17px -17px',
+    backgroundSize: '65px 65px',
+    damage: 4,
+    evolution: 24,
+  },
+
+  {
+    id: 24,
+    name: 'Arbok',
+    img: 'arbok-front.png',
+    backgroundPosition: '-4px -6px',
+    backgroundSize: '45px 45px',
+    damage: 7,
+  },
+
+  {
+    id: 25,
+    name: 'Pikachu',
+    img: 'pikachu-front.png',
+    backgroundPosition: '-18px -17px',
+    backgroundSize: '65px 65px',
+    damage: 3,
+    evolution: 26,
+  },
+
+  {
+    id: 26,
+    name: 'Raichu',
+    img: 'raichu-front.png',
+    backgroundPosition: '-5px -6px',
+    backgroundSize: '45px 45px',
+    damage: 5,
+  },
+
+  {
+    id: 41,
+    name: 'Zubat',
+    img: 'zubat-front.png',
+    backgroundPosition: '-15px -18px',
+    backgroundSize: '65px 65px',
+    damage: 3,
+    evolution: 42,
+  },
+
+  {
+    id: 42,
+    name: 'Golbat',
+    img: 'golbat-front.png',
+    backgroundPosition: '-7px -6px',
+    backgroundSize: '45px 45px',
+    damage: 5,
+  },
+
+  {
+    id: 50,
+    name: 'Diglett',
+    img: 'diglett-front.png',
+    backgroundPosition: '-23px -22px',
+    backgroundSize: '75px 75px',
+    damage: 2,
+    evolution: 51,
+  },
+
+  {
+    id: 51,
+    name: 'Dugtrio',
+    img: 'dugtrio-front.png',
+    backgroundPosition: '-17px -17px',
+    backgroundSize: '65px 65px',
+    damage: 5,
+  },
+
+  {
     id: 77,
     name: 'Ponyta',
     img: 'ponyta-front.png',
@@ -237,6 +313,25 @@ const initialState = [
     backgroundPosition: '-5px -5px',
     backgroundSize: '45px 45px',
     damage: 7,
+  },
+
+  {
+    id: 102,
+    name: 'Exeggcute',
+    img: 'exeggcute-front.png',
+    backgroundPosition: '-12px -11px',
+    backgroundSize: '55px 55px',
+    damage: 3,
+    evolution: 103,
+  },
+
+  {
+    id: 103,
+    name: 'Exeggutor',
+    img: 'exeggutor-front.png',
+    backgroundPosition: '-7px -8px',
+    backgroundSize: '45px 45px',
+    damage: 15,
   },
 
   {
@@ -309,8 +404,17 @@ const initialState = [
     id: 130,
     name: 'Gyarados',
     img: 'gyarados-front.png',
-    backgroundPosition: '-3px -4px',
-    backgroundSize: '35px 35px',
+    backgroundPosition: '-4px -4px',
+    backgroundSize: '38px 38px',
+    damage: 17,
+  },
+
+  {
+    id: 131,
+    name: 'Lapras',
+    img: 'lapras-front.png',
+    backgroundPosition: '-7px -6px',
+    backgroundSize: '43px 43px',
     damage: 17,
   },
 
@@ -334,10 +438,19 @@ const initialState = [
   },
 
   {
+    id: 143,
+    name: 'Snorlax',
+    img: 'snorlax-front.png',
+    backgroundPosition:'-9px -8px',
+    backgroundSize:  '45px 45px',
+    damage: 18,
+  },
+
+  {
     id: 150,
     name: 'Mewto',
     img: 'mewto-front.png',
-    backgroundPosition: '-5px -9px',
+    backgroundPosition: '-9px -8px',
     backgroundSize: '45px 45px',
     damage: 19,
   },
@@ -346,11 +459,11 @@ const initialState = [
     id: 151,
     name: 'Mew',
     img: 'mew-front.png',
-    backgroundPosition:'-17px -15px',
-    backgroundSize:  '64px 64px',
+    backgroundPosition:'-16px -15px',
+    backgroundSize:  '60px 60px',
     damage: 15,
   },
-
+/*
   {
     id: 152,
     name: 'Treecko',
@@ -379,6 +492,7 @@ const initialState = [
     backgroundSize: '40px 40px',
     damage: 7,
   },
+*/
 ];
 
 module.exports = function (state) {
