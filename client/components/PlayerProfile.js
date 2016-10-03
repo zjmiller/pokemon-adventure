@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Pokedex from './Pokedex';
 
-function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies, handleSpeciesTradeIn }){
+function PlayerProfile({ playerId, playerName, hp, bgColor, yourProfile, handleChangeSpecies, handleSpeciesTradeIn }){
   let hpBarColor;
   if (hp > 8) {
     hpBarColor = '#090';
@@ -34,10 +34,15 @@ function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies
       <div
         style={{
           backgroundColor: bgColor,
+          fontFamily: 'Arial',
+          fontSize: '14px',
+          fontWeight: '700',
           padding: '10px',
         }}
       >
-        { playerId }
+        {yourProfile ? 'You' : ''}
+        { ` — ${playerName}` }
+
       </div>
       { hpBlocks }
       <Pokedex
@@ -52,6 +57,7 @@ function PlayerProfile({ playerId, hp, bgColor, yourProfile, handleChangeSpecies
 
 const mapStateToProps = (state, { playerId }) => ({
   bgColor: state.players.find(player => player.id === playerId).color,
+  playerName: state.players.find(player => player.id === playerId).playerName,
 });
 
 export default connect(mapStateToProps)(PlayerProfile);

@@ -1,5 +1,6 @@
 const randomColor = require('randomcolor');
 const getRandomUnoccupiedLocation = require('../selectors/getRandomUnoccupiedLocation.js');
+const getNumPlayers = require('../selectors/getNumPlayers');
 
 module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
   const randomUnoccupiedLocation = getRandomUnoccupiedLocation(getState());
@@ -7,10 +8,12 @@ module.exports = ({ playerId }, { dispatch, getState }, actionsList) => {
   const possibleBeginningPokemonSpeciesIds = [1, 4, 7];
 
   const randomSpeciesId = possibleBeginningPokemonSpeciesIds[Math.floor(Math.random() * 3)];
-
+  const playerName = 'Player #' + (getNumPlayers(getState()) + 1);
+  
   const action = {
     type: 'CREATE_PLAYER',
     playerId,
+    playerName,
     color: randomColor({ format: 'rgb' }),
     pokemonSpeciesId: randomSpeciesId,
     x: randomUnoccupiedLocation.x,

@@ -41,6 +41,7 @@ module.exports = (state, action) => {
 
     return state.concat({
       id: action.playerId,
+      playerName: action.playerName,
       color: action.color,
       facing: 'left',
       hp: 10,
