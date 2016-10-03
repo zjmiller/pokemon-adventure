@@ -33,11 +33,13 @@ function relativeRarity(speciesId) {
   if (speciesId === 112) return 1;   // Rhydon
   if (speciesId === 124) return 5;   // Jynx
   if (speciesId === 129) return 50;   // Magikarp
-  if (speciesId === 130) return 5;   // Gyarados
-  if (speciesId === 133) return 15;   // Eevee
+  if (speciesId === 130) return 1;   // Gyarados
+  if (speciesId === 133) return 10;   // Eevee
   if (speciesId === 134) return 1;   // Vaporeon
   if (speciesId === 150) return 1;   // Mewto
   if (speciesId === 151) return 1;   // Mew
+
+  // These are currently not in game
   if (speciesId === 152) return 4;   // Treecko
   if (speciesId === 153) return 1;   // Grovyle
   if (speciesId === 154) return 1;   // Sceptile

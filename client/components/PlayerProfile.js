@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Pokedex from './Pokedex';
+import rgbToRgba from '../../shared/utils/rgbToRgba';
 
 function PlayerProfile({ playerId, playerName, hp, bgColor, yourProfile, handleChangeSpecies, handleSpeciesTradeIn }){
   let hpBarColor;
@@ -33,7 +34,7 @@ function PlayerProfile({ playerId, playerName, hp, bgColor, yourProfile, handleC
     <div>
       <div
         style={{
-          backgroundColor: bgColor,
+          backgroundColor: rgbToRgba(bgColor, 0.5),
           fontFamily: 'Arial',
           fontSize: '14px',
           fontWeight: '700',
