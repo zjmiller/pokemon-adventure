@@ -45,7 +45,14 @@ function PlayerProfile({ playerId, playerName, hp, bgColor, yourProfile, handleC
         { ` — ${playerName}` }
 
       </div>
-      { hpBlocks }
+      <div
+        style={{
+          height: '20px',
+          lineHeight: '20px',
+        }}
+      >
+        { hpBlocks }
+      </div>
       <Pokedex
         playerId={playerId}
         yourPokedex={yourProfile}
