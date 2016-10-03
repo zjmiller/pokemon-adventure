@@ -12,6 +12,7 @@ const shouldCapturedNpcCauseGemSpawn = require('../selectors/shouldCapturedNpcCa
 const spawnGem = require('./spawnGem');
 const getPlayerSpecies = require('../selectors/getPlayerSpecies');
 const getEvolutionOfSpecies = require('../selectors/getEvolutionOfSpecies');
+const doesSpeciesHaveEvolution = require('../selectors/doesSpeciesHaveEvolution');
 
 function unthrottledMove({ playerId, direction }, { dispatch, getState }, actionsList) {
   const action = {
@@ -45,16 +46,19 @@ function unthrottledMove({ playerId, direction }, { dispatch, getState }, action
   const playerIsOnGem = isPlayerOnGem(getState(), playerId);
   if (playerIsOnGem) {
     const speciesId = getPlayerSpecies(getState(), playerId);
-    const evolutionSpeciesId = getEvolutionOfSpecies(getState(), speciesId);
+    const speciesDoesHaveEvolution = doesSpeciesHaveEvolution(getState(), speciesId);
+    if (speciesDoesHaveEvolution) {
+      const evolutionSpeciesId = getEvolutionOfSpecies(getState(), speciesId);
 
-    const action = {
-      type: 'EAT_GEM',
-      playerId,
-      speciesId,
-      evolutionSpeciesId,
-    };
-    actionsList.push(action);
-    dispatch(action);
+      const action = {
+        type: 'EAT_GEM',
+        playerId,
+        speciesId,
+        evolutionSpeciesId,
+      };
+      actionsList.push(action);
+      dispatch(action);  
+    }
   }
 
   const playerIsOnNpc = isPlayerOnNpc(getState(), playerId);
