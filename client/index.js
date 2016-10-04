@@ -9,6 +9,7 @@ import createPlayer from './actions/createPlayer';
 import movePlayer from './actions/movePlayer';
 import changeSpecies from './actions/changeSpecies';
 import tradeInSpecies from './actions/tradeInSpecies';
+import pause from './actions/pause';
 import doesPlayerExist from './selectors/doesPlayerExist';
 
 // declare store up here so it can be accessed throughout
@@ -88,9 +89,11 @@ function handleSpeciesTradeIn(speciesId){
 
 // event listeners
 window.addEventListener('keydown', e => {
-  if ([37, 38, 39, 40].some(n => n === e.which)) e.preventDefault();
+  if ([32, 37, 38, 39, 40].some(n => n === e.which)) e.preventDefault();
 
-  if (e.which === 37)
+  if (e.which === 32)
+    pause(ws);
+  else if (e.which === 37)
     movePlayer(ws, haveProcessedBefore, { playerId, direction: 'left' } );
   else if (e.which === 38)
     movePlayer(ws, haveProcessedBefore, { playerId, direction: 'up' } );

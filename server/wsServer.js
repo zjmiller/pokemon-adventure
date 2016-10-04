@@ -28,7 +28,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       spawnNpc({}, store, actionsList);
   }, 1000);
 
-  setInterval(() => {
+  let movingInterval = setInterval(() => {
     store.getState().npcs.forEach(npc => {
       const opts = { npcId: npc.id };
       tryToMoveNpcInRandomDirection(opts, store, actionsList);
@@ -36,7 +36,6 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
   }, 1000);
 
   wsServer.on('connection', connection => {
-
     let haveProcessedBefore;
 
     if (connection.readyState === connection.OPEN) {
@@ -55,6 +54,15 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       if (data.action === 'movePlayer') movePlayer(data.options, store, actionsList);
       if (data.action === 'changeSpecies') changeSpecies(data.options, store, actionsList);
       if (data.action === 'tradeInSpecies') tradeInSpecies(data.options, store, actionsList);
+      if (data.action === 'pause') clearInterval(movingInterval);
+      if (data.action === 'resume') {
+        movingInterval = setInterval(() => {
+          store.getState().npcs.forEach(npc => {
+            const opts = { npcId: npc.id };
+            tryToMoveNpcInRandomDirection(opts, store, actionsList);
+          });
+        }, 1000);
+      }
     });
 
     // respond to incoming action indirectly via store changes
