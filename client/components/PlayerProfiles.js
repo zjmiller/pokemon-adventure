@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PlayerProfile from './PlayerProfile';
 
-function PlayerProfiles({ playerId, hp, infoForOtherPlayers, handleChangeSpecies, handleSpeciesTradeIn }){
+function PlayerProfiles({ playerId, hp, infoForOtherPlayers, handleChangeName, handleChangeSpecies, handleSpeciesTradeIn }){
   return (
     <div style={{
       float: 'right',
@@ -14,6 +14,7 @@ function PlayerProfiles({ playerId, hp, infoForOtherPlayers, handleChangeSpecies
         playerId={playerId}
         hp={hp}
         yourProfile={true}
+        handleChangeName={handleChangeName}
         handleChangeSpecies={handleChangeSpecies}
         handleSpeciesTradeIn={handleSpeciesTradeIn}
       />

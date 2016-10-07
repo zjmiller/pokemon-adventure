@@ -74,7 +74,7 @@ function Pokedex({ pokedex, pokemonSpecies, state, yourPokedex, handleChangeSpec
 
   return (
     <div style={{
-      height: '250px',
+      height: '275px',
       position: 'relative',
       width: '276px',
     }}>

@@ -3,6 +3,17 @@ const initialState = [];
 module.exports = (state, action) => {
   if (state === undefined) state = initialState;
 
+  if (action.type === 'CHANGE_NAME') {
+    return state.map(player => {
+      if (player.id !== action.playerId) return player;
+      return Object.assign(
+        {},
+        player,
+        { playerName: action.newName }
+      );
+    });
+  }
+
   if (action.type === 'TRADE_IN_SPECIES') {
     return state.map(player => {
       if (player.id !== action.playerId) return player;

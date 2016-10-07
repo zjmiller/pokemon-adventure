@@ -7,6 +7,7 @@ import rootReducer from '../shared/reducers/rootReducer';
 import App from './components/App';
 import createPlayer from './actions/createPlayer';
 import movePlayer from './actions/movePlayer';
+import changeName from './actions/changeName';
 import changeSpecies from './actions/changeSpecies';
 import tradeInSpecies from './actions/tradeInSpecies';
 import pause from './actions/pause';
@@ -28,6 +29,18 @@ let haveRendered = false;
 
 const ws = new WebSocket(location.origin.replace(/^http/, 'ws'), 'protocol-1');
 
+function handleChangeName(playerId, newName){
+  changeName(ws, haveProcessedBefore, { playerId, newName });
+}
+
+function handleChangeSpecies(speciesId){
+  changeSpecies(ws, haveProcessedBefore, { playerId, speciesId });
+}
+
+function handleSpeciesTradeIn(speciesId){
+  tradeInSpecies(ws, haveProcessedBefore, { playerId, speciesId });
+}
+
 // set up WebSocket
 ws.onmessage = message => {
   const data = JSON.parse(message.data);
@@ -43,6 +56,7 @@ ws.onmessage = message => {
         <Provider store={store}>
           <App
             playerId={playerId}
+            handleChangeName={handleChangeName}
             handleChangeSpecies={handleChangeSpecies}
             handleSpeciesTradeIn={handleSpeciesTradeIn}
           />
@@ -64,6 +78,7 @@ ws.onmessage = message => {
           <Provider store={store}>
             <App
               playerId={playerId}
+              handleChangeName={handleChangeName}
               handleChangeSpecies={handleChangeSpecies}
               handleSpeciesTradeIn={handleSpeciesTradeIn}
             />
@@ -78,14 +93,6 @@ ws.onmessage = message => {
   // either way, update count so we know which actions we've processed
   haveProcessedBefore = data.haveProcessedBefore;
 };
-
-function handleChangeSpecies(speciesId){
-  changeSpecies(ws, haveProcessedBefore, { playerId, speciesId });
-}
-
-function handleSpeciesTradeIn(speciesId){
-  tradeInSpecies(ws, haveProcessedBefore, { playerId, speciesId });
-}
 
 // event listeners
 window.addEventListener('keydown', e => {

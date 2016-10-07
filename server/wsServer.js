@@ -7,6 +7,7 @@ const spawnNpc = require('./actions/spawnNpc.js');
 const spawnGem = require('./actions/spawnGem.js');
 const changeSpecies = require('./actions/changeSpecies.js');
 const tradeInSpecies = require('./actions/tradeInSpecies.js');
+const changeName = require('./actions/changeName.js');
 const getNumBerries = require('./selectors/getNumBerries.js');
 const getNumMushrooms = require('./selectors/getNumMushrooms.js');
 const getNumNpcs = require('./selectors/getNumNpcs.js');
@@ -54,6 +55,7 @@ module.exports = function createWsServer(httpServer, store, actionsList) {
       if (data.action === 'movePlayer') movePlayer(data.options, store, actionsList);
       if (data.action === 'changeSpecies') changeSpecies(data.options, store, actionsList);
       if (data.action === 'tradeInSpecies') tradeInSpecies(data.options, store, actionsList);
+      if (data.action === 'changeName') changeName(data.options, store, actionsList);
       if (data.action === 'pause') clearInterval(movingInterval);
       if (data.action === 'resume') {
         movingInterval = setInterval(() => {
