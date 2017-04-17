@@ -1,6 +1,8 @@
 const pokemonSoFar = require('./pokemonSoFar');
 
 function relativeRarity(speciesId) {
+  return 1; // added this in for dex special
+
   if (speciesId === 1) return 10;     // Bulbasaur
   if (speciesId === 2) return 1;      // Ivysaur
   if (speciesId === 3) return 0.5;      // Venusaur
